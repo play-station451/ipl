@@ -3,8 +3,10 @@ const app = express();
 
 const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1441910971583955096/lB5pL8eiU_UccEKYVt11qdh3Jp1HaG4kNlnPR87q1slqf3tdiXUIREIrVYsz7ZiW44gV';
 
+app.set('trust proxy', true); // important if behind a reverse proxy
+
 app.get('/', async (req, res) => {
-    const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress).split(',')[0].trim();
+    const ip = req.ip; // Express will handle x-forwarded-for automatically
 
     res.send('<h1>loading</h1>');
 
